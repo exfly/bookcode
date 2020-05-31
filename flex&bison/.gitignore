@@ -1,0 +1,6 @@
+wc
+*.yy.c
+*.tab.c
+*.tab.h
+str2exp
+calc
