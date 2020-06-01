@@ -29,9 +29,19 @@ calcast:
 	&& flex fb3-1.l \
 	&& gcc fb3-1.h fb3-1.tab.c fb3-1.tab.h lex.yy.c fb3-1.c -o $@ -lfl
 
+supercalc:
+	cd 07supercalc \
+	&& bison -d fb3-2.y \
+	&& flex fb3-2.l \
+	&& gcc fb3-2.h fb3-2.tab.c fb3-2.tab.h lex.yy.c fb3-2func.c -o $@ -lfl -lm
+
 .PHONY: clean
 clean:
 	-rm **/*.yy.c
-	-rm 01wc/wc
 	-rm **/*.tab.c **/*.tab.h
+	-rm 01wc/wc
+	-rm 02e2a/e2a
+	-rm 03str2exp/str2exp
 	-rm 05calc/calc
+	-rm 06calcast/calcast
+	-rm 07supercalc/supercalc
