@@ -23,6 +23,12 @@ calc: 05calc/fb1-5.l 05calc/fb1-5.y
 	&& flex fb1-5.l \
 	&& gcc fb1-5.tab.c lex.yy.c -o $@ -lfl
 
+calcast:
+	cd 06calcast \
+	&& bison -d fb3-1.y \
+	&& flex fb3-1.l \
+	&& gcc fb3-1.h fb3-1.tab.c fb3-1.tab.h lex.yy.c fb3-1.c -o $@ -lfl
+
 .PHONY: clean
 clean:
 	-rm **/*.yy.c
