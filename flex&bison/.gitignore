@@ -2,6 +2,7 @@ wc
 *.yy.c
 *.tab.c
 *.tab.h
+*.output
 str2exp
 calc
 calcast

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fb3-2.h"
+#define YYDEBUG 1
 
 %}
 
@@ -30,7 +31,7 @@
 %left '*' '/'
 %nonassoc UMINUS
 
-%type <a> exp stmt list explist funcstmt funclist
+%type <a> exp factor term stmt list explist funcstmt funclist
 %type <sl> symlist
 
 %start calclist
@@ -52,20 +53,26 @@ list: /* 空 */ { $$ = NULL; }
 	}
 ;
 
-exp: exp CMP exp { $$ = newcmp($2, $1, $3); }
- | exp '+' exp { $$ = newast('+', $1, $3); }
- | exp '-' exp { $$ = newast('-', $1, $3); }
- | exp '*' exp { $$ = newast('*', $1, $3); }
- | exp '/' exp { $$ = newast('/', $1, $3); }
+exp: factor
+ | exp '+' factor { $$ = newast('+', $1, $3); }
+ | exp '-' factor { $$ = newast('-', $1, $3); }
+ | exp CMP exp { $$ = newcmp($2, $1, $3); }
+ ;
+
+factor: term
+ | factor '*' term { $$ = newast('*', $1, $3); }
+ | factor '/' term { $$ = newast('/', $1, $3); }
+ ;
+
+term: NUMBER { $$ = newnum($1); }
+ | NAME { $$ = newref($1); }
  | '|' exp '|' { $$ = newast('|', $2, NULL); }
  | '(' exp ')' { $$ = $2; }
- | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
- | NUMBER { $$ = newnum($1); }
- | NAME { $$ = newref($1); }
+ | '-' term { $$ = newast('M', $2, NULL); }
  | NAME '=' exp { $$ = newasgn($1, $3); }
  | CALL '(' explist ')' { $$ = newfunc($1, $3); }
  | NAME '(' explist ')' { $$ = newcall($1, $3); }
-;
+ ;
 
 explist: exp
  | exp ',' explist { $$ = newast('L', $1, $3); }

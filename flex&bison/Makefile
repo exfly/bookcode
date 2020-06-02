@@ -31,7 +31,7 @@ calcast:
 
 supercalc:
 	cd 07supercalc \
-	&& bison -d fb3-2.y \
+	&& bison -d fb3-2.y --report=all \
 	&& flex fb3-2.l \
 	&& gcc fb3-2.h fb3-2.tab.c fb3-2.tab.h lex.yy.c fb3-2func.c -o $@ -lfl -lm
 
