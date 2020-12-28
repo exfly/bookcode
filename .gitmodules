@@ -1,0 +1,6 @@
+[submodule "impl-cache-server"]
+	path = impl-cache-server
+	url = https://github.com/exfly/go-implement-your-cache-server.git
+[submodule "impl-obj-storage"]
+	path = impl-obj-storage
+	url = https://github.com/exfly/go-implement-your-object-storage.git
