@@ -10,6 +10,7 @@ int lines = 0;
 %%
 
 [a-zA-Z]+  { words++; chars += strlen(yytext); printf("get: %s\n", yytext); }
+[^ \t\n\r\f\v]+ { words++; chars += strlen(yytext); printf("get: %s\n", yytext); }
 \n         { chars++; lines++; }
 .          { chars++; }
 
