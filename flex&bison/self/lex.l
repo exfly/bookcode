@@ -1,8 +1,8 @@
 %option nodefault noyywrap yylineno
 %x COMMENT
 %{
-# include "fb1-5.tab.h"
 # include <stdlib.h>
+# include "parser.tab.h"
 %}
 
 %%

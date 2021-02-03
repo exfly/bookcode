@@ -21,19 +21,25 @@ calc: 05calc/fb1-5.l 05calc/fb1-5.y
 	cd 05calc \
 	&& bison -d fb1-5.y \
 	&& flex fb1-5.l \
-	&& gcc fb1-5.tab.c lex.yy.c -o $@ -lfl
+	&& gcc fb1-5.tab.c lex.yy.c -o $@
 
 calcast:
 	cd 06calcast \
 	&& bison -d fb3-1.y \
 	&& flex fb3-1.l \
-	&& gcc fb3-1.h fb3-1.tab.c fb3-1.tab.h lex.yy.c fb3-1.c -o $@ -lfl
+	&& gcc  fb3-1.tab.c lex.yy.c fb3-1.c -o $@ -lfl
 
 supercalc:
 	cd 07supercalc \
 	&& bison -d fb3-2.y --report=all \
 	&& flex fb3-2.l \
 	&& gcc fb3-2.h fb3-2.tab.c fb3-2.tab.h lex.yy.c fb3-2func.c -o $@ -lfl -lm
+
+demo:
+	cd self \
+	&& bison -d parser.y --report=all \
+	&& flex lex.l \
+	&& gcc lex.yy.c  parser.tab.c -o $@
 
 .PHONY: clean
 clean:
